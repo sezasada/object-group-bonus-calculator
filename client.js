@@ -61,18 +61,23 @@ function calculateBonus(employee) {
   }
   const totalBonus = Math.round(employee.annualSalary * (bonusPercentage / 100));
   const totalCompensation = Number(employee.annualSalary) + Number(totalBonus);
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency', 
+    currency: 'USD',
+  });
+
   return {
     name: employee.name,
-    bonusPercentage: bonusPercentage,
+    bonusPercentage: bonusPercentage + '%',
     totalCompensation: totalCompensation,
-    totalBonus: totalBonus
+    totalBonus: formatter.format(totalBonus)
   }
 
 }
 
 for (let x = 0; x < employees.length; x++) {
   const result = calculateBonus(employees[x]);
-  console.log(result);
+  console.log('the result is', result);
 }
 
 
