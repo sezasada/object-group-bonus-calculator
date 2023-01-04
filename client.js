@@ -32,48 +32,49 @@ const employees = [
   }
 ];
 
-console.log('array of employee data: ',  employees );
+console.log('array of employee data: ', employees);
 
 
 
 
 
 
-function result (employees) {
-  for (let x = 0; x < employees.length; x++) {
-    const employee = employees[x];
-    let bonusPercentage = 0;
-    if (employee.reviewRating === 3) {
-      bonusPercentage = 4;
-    } else if (employee.reviewRating === 4) {
-      bonusPercentage = 6;
-    } else if (employee.reviewRating === 5) {
-      bonusPercentage = 10;
-    }
-    if (employee.employeeNumber.length === 4) {
-      bonusPercentage += 5;
-    }
-    if (employee.annualSalary > 65000) {
-      bonusPercentage -= 1;
-    }
-    if (bonusPercentage > 13) {
-      bonusPercentage = 13;
-    } else if (bonusPercentage < 0){
-      bonusPercentage = 0;
-    }
-    const totalBonus = Math.round(employee.annualSalary * (bonusPercentage / 100));
-    const totalCompensation = Number(employee.annualSalary) + Number(totalBonus);
-    console.log({
-      name: employee.name, 
-      bonusPercentage: bonusPercentage,
-      totalCompensation: totalCompensation,
-      totalBonus: totalBonus
-    })
-
+function calculateBonus(employee) {
+  let bonusPercentage = 0;
+  if (employee.reviewRating === 3) {
+    bonusPercentage = 4;
+  } else if (employee.reviewRating === 4) {
+    bonusPercentage = 6;
+  } else if (employee.reviewRating === 5) {
+    bonusPercentage = 10;
   }
+  if (employee.employeeNumber.length === 4) {
+    bonusPercentage += 5;
+  }
+  if (employee.annualSalary > 65000) {
+    bonusPercentage -= 1;
+  }
+  if (bonusPercentage > 13) {
+    bonusPercentage = 13;
+  } else if (bonusPercentage < 0) {
+    bonusPercentage = 0;
+  }
+  const totalBonus = Math.round(employee.annualSalary * (bonusPercentage / 100));
+  const totalCompensation = Number(employee.annualSalary) + Number(totalBonus);
+  return {
+    name: employee.name,
+    bonusPercentage: bonusPercentage,
+    totalCompensation: totalCompensation,
+    totalBonus: totalBonus
+  }
+
 }
 
-console.log(result(employees));
+for (let x = 0; x < employees.length; x++) {
+  const result = calculateBonus(employees[x]);
+  console.log(result);
+}
+
 
 // - Those who have a rating of a 2 or below should not receive a bonus.
 //- Those who have a rating of a 3 should receive a base bonus of 4% of their base annual income.
@@ -96,10 +97,3 @@ console.log(result(employees));
 
 // This function will calculate 1 employee's bonus!
 //
-function calculateIndividualEmployeeBonus( employee ) {  
-  // your logic here
-  
-  
-  // return new object with bonus results
-
-}
